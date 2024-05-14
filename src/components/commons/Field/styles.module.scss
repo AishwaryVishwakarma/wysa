@@ -1,0 +1,27 @@
+.field {
+  span {
+    position: relative;
+
+    input {
+      width: 100%;
+      padding-block: 10px;
+    }
+
+    > svg {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  p {
+    color: red;
+    font-size: 14px;
+    margin-block: 5px;
+
+    @media (max-width: 800px) {
+      font-size: 12px;
+    }
+  }
+}

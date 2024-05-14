@@ -7,7 +7,7 @@ import './globals.scss';
 const inter = Inter({subsets: ['latin']});
 
 export const metadata: Metadata = {
-  title: 'Wysa Assignement',
+  title: 'Wysa',
   description: 'Wysa Assignement for Junior Frontend Developer',
   creator: 'Aishwary Vishwakarma',
   authors: [
