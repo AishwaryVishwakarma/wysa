@@ -1,3 +1,37 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "prettier"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": ["warn", "debug", "error", "info"] // Allow these console methods
+      }
+    ],
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true
+      }
+    ],
+    "no-unused-vars": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"], // Target TypeScript files
+      "rules": {
+        "no-unused-vars": "off" // Disable the rule for TypeScript files
+      }
+    }
+  ]
 }
