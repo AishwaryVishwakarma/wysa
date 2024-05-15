@@ -21,12 +21,12 @@ const HomePage = () => {
 
   const dispatch = useAppDispatch();
 
-  const {loading} = useUser({
+  const {name, email, loading} = useUser({
     fetchUser: true,
   });
 
   const [theme, setTheme] = React.useState(themeMap.get('Default'));
-  const [isProfileOpen, setIsProfileOpen] = React.useState(false);
+  const [isProfileOpen, setIsProfileOpen] = React.useState(true);
   const [logoutLoading, setLogoutLoading] = React.useState(false);
 
   const closeProfile = () => {
@@ -78,7 +78,9 @@ const HomePage = () => {
           <div className={styles.chatbox}>
             <Chatbox bubbleBackgoundColor={theme?.bubble_background_color} />
           </div>
-          {isProfileOpen && <Profile closeProfile={closeProfile} />}
+          {isProfileOpen && (
+            <Profile closeProfile={closeProfile} name={name} email={email} />
+          )}
         </>
       )}
     </Layout>
