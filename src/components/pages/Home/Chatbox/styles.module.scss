@@ -1,0 +1,80 @@
+@mixin flexbox($direction: row, $align: center, $justify: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+}
+
+.chatbox {
+  @include flexbox(column, flex-start, flex-start);
+  gap: 1rem;
+  width: 100%;
+  max-width: 350px;
+  height: 500px;
+  overflow-y: auto;
+  position: relative;
+  padding-right: 1rem;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 0.2rem;
+    display: block;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+
+  .bubble {
+    @include flexbox(row, center, flex-start);
+    padding: 1rem;
+    border-radius: 1rem;
+    word-wrap: break-word;
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+    width: fit-content;
+    animation: pop 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+    &.user {
+      align-self: flex-end;
+      background-color: #f1f1f1;
+      text-align: right;
+    }
+
+    &.bot {
+      align-self: flex-start;
+      background-color: #f1f1f1;
+    }
+  }
+
+  form {
+    width: 100%;
+    margin-top: 1rem;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+
+    input {
+      border: none;
+      outline: none;
+      padding: 0.8rem;
+      width: 100%;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+
+      &::placeholder {
+        color: #ccc;
+      }
+    }
+  }
+}
+@keyframes pop {
+  to {
+    transform: translateX(0);
+  }
+}

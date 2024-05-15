@@ -1,88 +1,66 @@
 'use client';
 
-import {ArrowRight, Eye, EyeSlash, Login, User} from '@/assets/icons';
 import {Spinner} from '@/assets/loaders';
 import Layout from '@/components/Layout/Layout';
-import Field from '@/components/commons/Field/Field';
-import useLogin from '@/hooks/useLogin';
+import LoginForm from '@/components/pages/AccessPortal/LoginForm/LoginForm';
+import RegisterForm from '@/components/pages/AccessPortal/RegisterForm/RegisterForm';
+import {PATHS} from '@/helpers';
+import useUser from '@/hooks/useUser';
+import {setUser} from '@/redux/features/userSlice';
+import {useAppDispatch} from '@/redux/store';
+import {useRouter} from 'next/navigation';
 import React from 'react';
 
+import {account} from '../../config/appWrite';
 import styles from './styles.module.scss';
+
+export enum Mode {
+  Login = 'login',
+  Register = 'register',
+}
 
 /**
  * Login page
  */
-const LoginPage = () => {
-  const {formData, handleChange, handleShowPassword, onSubmit, error, loading} =
-    useLogin();
+const AccessPortalPage = () => {
+  const router = useRouter();
+
+  const dispatch = useAppDispatch();
+
+  const {isLogged, getUser, loading: userLoading} = useUser();
+
+  const [mode, setMode] = React.useState(Mode.Login);
+  const [loading, setLoading] = React.useState(userLoading);
+
+  const pageLoading = userLoading || loading;
+
+  React.useEffect(() => {
+    if (isLogged) {
+      router.replace(PATHS.Home);
+      return;
+    }
+
+    getUser(
+      () => {
+        router.replace(PATHS.Home);
+      },
+      () => {
+        setLoading(false);
+      }
+    );
+  }, [dispatch, router, isLogged, getUser]);
 
   return (
     <Layout className={styles.container}>
-      <div className={styles.loginContainer}>
-        <Login height={35} width={35} />
-        <h1>Welcome!</h1>
-        <p>Sign in to your account</p>
-        <form onSubmit={onSubmit} aria-label='Login form'>
-          <Field
-            label='Email'
-            id='email'
-            name='email'
-            type='email'
-            required
-            value={formData.email}
-            onChange={handleChange}
-            showError={error.email}
-            errorMessage='Please enter a valid email address'
-            icon={<User aria-hidden='true' />}
-          />
-          <Field
-            label='Password'
-            id='password'
-            name='password'
-            required
-            value={formData.password}
-            onChange={handleChange}
-            type={formData.showPassword ? 'text' : 'password'}
-            showError={error.password}
-            errorMessage='Password must contain at least 8 characters, including uppercase, lowercase, and numbers'
-            icon={
-              formData.showPassword ? (
-                <EyeSlash
-                  onClick={handleShowPassword}
-                  role='button'
-                  aria-label='Hide password'
-                />
-              ) : (
-                <Eye
-                  onClick={handleShowPassword}
-                  role='button'
-                  aria-label='Show password'
-                />
-              )
-            }
-          />
-          <Field
-            label='Remember me'
-            id='rememberMe'
-            name='rememberMe'
-            type='checkbox'
-            checked={formData.rememberMe}
-            onChange={handleChange}
-            containerClassName={styles.rememberMe}
-          />
-          <button type='submit' disabled={loading} aria-label='Login'>
-            {loading ? (
-              <Spinner />
-            ) : (
-              <>
-                Login <ArrowRight aria-hidden='true' />
-              </>
-            )}
-          </button>
-        </form>
-      </div>
+      {pageLoading ? (
+        <Spinner className={styles.spinner} />
+      ) : mode === Mode.Login ? (
+        <LoginForm setMode={setMode} />
+      ) : (
+        <RegisterForm setMode={setMode} />
+      )}
     </Layout>
   );
 };
 
-export default LoginPage;
+export default AccessPortalPage;

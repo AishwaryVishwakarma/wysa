@@ -1,0 +1,173 @@
+$primaryColor: #3b3663;
+$secondaryColor: #696687;
+
+@mixin flexbox($direction: row, $align: center, $justify: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+}
+
+.loginContainer {
+  @include flexbox(column, center, center);
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 40px 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+
+  @media (max-width: 800px) {
+    width: 90%;
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-block: 15px 5px;
+    color: $primaryColor;
+
+    + p {
+      font-size: 18px;
+      color: $secondaryColor;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 800px) {
+      font-size: 24px;
+
+      + p {
+        font-size: 16px;
+      }
+    }
+  }
+
+  form {
+    display: grid;
+    gap: 30px;
+    width: 100%;
+    margin-top: 40px;
+
+    > div {
+      display: grid;
+      gap: 8px;
+
+      label {
+        font-size: 17px;
+        color: $secondaryColor;
+        opacity: 0.8;
+
+        @media (max-width: 800px) {
+          font-size: 16px;
+        }
+      }
+
+      input {
+        font-size: 17px;
+        padding-inline: 10px 40px;
+        color: $primaryColor;
+        outline: none;
+        border: none;
+        background: white no-repeat;
+        background-image: linear-gradient(
+            to bottom,
+            rgba(77, 97, 252, 0.63) 0%,
+            #4d61fc 90%
+          ),
+          linear-gradient(to bottom, #e1e1e1, #e1e1e1);
+        background-size:
+          0 2px,
+          100% 1px;
+        background-position:
+          50% 100%,
+          50% 100%;
+        transition: background-size 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+
+        &:focus {
+          background-size:
+            100% 2px,
+            100% 1px;
+        }
+
+        &::placeholder {
+          color: $secondaryColor;
+          opacity: 0.8;
+        }
+
+        @media (max-width: 800px) {
+          font-size: 16px;
+        }
+      }
+
+      svg {
+        cursor: pointer;
+      }
+    }
+
+    .registerButton {
+      font-size: 17px;
+      color: $secondaryColor;
+      opacity: 0.8;
+      outline: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      width: max-content;
+
+      @media (max-width: 800px) {
+        font-size: 16px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .loginButton {
+      @include flexbox(row, center, center);
+      background: #4d61fc;
+      border-radius: 6px;
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 15px 45px;
+      transition: 0.2s;
+      font-weight: 600;
+      width: max-content;
+      gap: 8px;
+      transition: 0.2s ease;
+      height: 50px;
+      width: 100%;
+
+      @media (max-width: 800px) {
+        font-size: 15px;
+        padding: 12px 40px;
+        height: 45px;
+        width: 100%;
+      }
+
+      svg {
+        transition: 0.2s ease;
+      }
+
+      &:hover {
+        background: #3b4dfc;
+
+        svg {
+          transform: translateX(5px);
+        }
+      }
+    }
+  }
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-block: -5px;
+
+  @media (max-width: 800px) {
+    font-size: 12px;
+  }
+}
