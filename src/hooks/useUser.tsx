@@ -6,7 +6,15 @@ import React from 'react';
 
 import {account} from '../../config/appWrite';
 
-const useUser = (fetchUser = false) => {
+type Args = {
+  fetchUser?: boolean;
+};
+
+const defaultArgs: Args = {
+  fetchUser: false,
+};
+
+const useUser = ({fetchUser}: Args = defaultArgs) => {
   const router = useRouter();
 
   const user = useAppSelector((state) => state.user);
@@ -15,14 +23,14 @@ const useUser = (fetchUser = false) => {
 
   const [loading, setLoading] = React.useState(!user.isLogged);
 
+  // Get user from appwrite
   const getUser = React.useCallback(
     async (
       onSucess?: () => void,
       onError?: () => void,
-      navigateToAccessPortal = true
+      navigateToAccessPortalOnFail = true
     ) => {
       try {
-        // Get user from appwrite
         const res = await account.get();
 
         // Call onSucess callback if provided
@@ -44,7 +52,7 @@ const useUser = (fetchUser = false) => {
         // Call onError callback if provided
         onError?.();
 
-        if (navigateToAccessPortal) {
+        if (navigateToAccessPortalOnFail) {
           router.replace(PATHS.AccessPortal);
           return;
         }

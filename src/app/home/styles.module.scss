@@ -1,3 +1,10 @@
+@mixin flexbox($direction: row, $align: center, $justify: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+}
+
 .container {
   height: 100%;
   padding: 30px;
@@ -15,17 +22,38 @@
     }
   }
 
-  .profile {
-    background-color: #f5f5f5;
-    width: max-content;
-    padding: 10px 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: auto;
+  .controls {
+    @include flexbox(row, stretch, center);
+    gap: 20px;
 
-    path {
-      fill: #7181fd;
+    .profile {
+      background-color: #f5f5f5;
+      width: max-content;
+      padding: 10px 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-left: auto;
+
+      path {
+        fill: #7181fd;
+      }
+    }
+
+    button {
+      @include flexbox();
+      background-color: #7181fd;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100px;
+
+      &:hover {
+        background-color: #5f6ee6;
+      }
     }
   }
 

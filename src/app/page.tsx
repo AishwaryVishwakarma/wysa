@@ -6,12 +6,10 @@ import LoginForm from '@/components/pages/AccessPortal/LoginForm/LoginForm';
 import RegisterForm from '@/components/pages/AccessPortal/RegisterForm/RegisterForm';
 import {PATHS} from '@/helpers';
 import useUser from '@/hooks/useUser';
-import {setUser} from '@/redux/features/userSlice';
 import {useAppDispatch} from '@/redux/store';
 import {useRouter} from 'next/navigation';
 import React from 'react';
 
-import {account} from '../../config/appWrite';
 import styles from './styles.module.scss';
 
 export enum Mode {
@@ -46,7 +44,8 @@ const AccessPortalPage = () => {
       },
       () => {
         setLoading(false);
-      }
+      },
+      false
     );
   }, [dispatch, router, isLogged, getUser]);
 

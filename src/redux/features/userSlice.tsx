@@ -26,9 +26,16 @@ export const user = createSlice({
       state.email = email;
       state.isLogged = true;
     },
+
+    resetUser: (state) => {
+      state.id = '';
+      state.name = '';
+      state.email = '';
+      state.isLogged = false;
+    },
   },
 });
 
-export const {setUser} = user.actions;
+export const {setUser, resetUser} = user.actions;
 
 export default user.reducer;
