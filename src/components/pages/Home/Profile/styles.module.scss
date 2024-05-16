@@ -30,6 +30,11 @@
   z-index: 101;
   isolation: isolate;
 
+  @media (max-width: 800px) {
+    width: 95%;
+    overflow-y: auto;
+  }
+
   .closeIcon {
     position: absolute;
     top: 30px;

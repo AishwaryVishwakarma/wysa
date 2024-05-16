@@ -13,22 +13,27 @@
   height: 500px;
   overflow-y: auto;
   position: relative;
-  padding-right: 1rem;
-  overflow-x: hidden;
 
-  &::-webkit-scrollbar {
-    width: 0.2rem;
-    display: block;
+  @media (max-width: 800px) {
+    max-width: 100%;
+    overscroll-behavior: contain;
+    height: 100%;
+    max-height: calc(100svh - 130px);
   }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 0.5rem;
-  }
+  // &::-webkit-scrollbar {
+  //   width: 0.2rem;
+  //   display: block;
+  // }
 
-  &::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-  }
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: #ccc;
+  //   border-radius: 0.5rem;
+  // }
+
+  // &::-webkit-scrollbar-track {
+  //   background-color: #f1f1f1;
+  // }
 
   .bubble {
     @include flexbox(row, center, flex-start);
