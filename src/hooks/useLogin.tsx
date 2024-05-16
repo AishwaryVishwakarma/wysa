@@ -88,9 +88,7 @@ const useLogin = () => {
             id: res.$id,
             name: res.name,
             email: res.email,
-            profilePicture: res.prefs?.profilePicture,
-            currentTheme: res.prefs?.currentTheme,
-            theme: res.prefs?.theme,
+            prefs: res.prefs as any,
           })
         );
 

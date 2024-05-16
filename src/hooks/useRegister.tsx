@@ -93,6 +93,15 @@ const useRegister = () => {
             id,
             name,
             email,
+            prefs: {
+              profilePicture: '',
+              currentTheme: 'Default',
+              theme: {
+                name: '',
+                bubbleBackgroundColor: '',
+                backgroundGradient: '',
+              },
+            },
           })
         );
 

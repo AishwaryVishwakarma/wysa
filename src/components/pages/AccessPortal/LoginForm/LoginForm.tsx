@@ -39,6 +39,7 @@ const LoginForm: React.FC<Props> = ({setMode}) => {
           showError={formError.email}
           errorMessage='Please enter a valid email address'
           icon={<Email aria-hidden='true' />}
+          autoComplete='email'
         />
         <Field
           label='Password'
@@ -65,6 +66,7 @@ const LoginForm: React.FC<Props> = ({setMode}) => {
               />
             )
           }
+          autoComplete='current-password'
         />
         <button
           type='button'

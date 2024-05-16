@@ -42,9 +42,7 @@ const useUser = ({fetchUser}: Args = defaultArgs) => {
             id: res.$id,
             email: res.email,
             name: res.name,
-            profilePicture: res.prefs?.profilePicture,
-            currentTheme: res.prefs?.currentTheme,
-            theme: res.prefs?.theme,
+            prefs: res.prefs as any,
           })
         );
 

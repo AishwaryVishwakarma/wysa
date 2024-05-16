@@ -32,12 +32,14 @@ const AccessPortalPage = () => {
 
   const pageLoading = userLoading || loading;
 
+  // Redirect to home if user is already logged in
   React.useEffect(() => {
     if (isLogged) {
       router.replace(PATHS.Home);
       return;
     }
 
+    // Get user from appwrite
     getUser(
       () => {
         router.replace(PATHS.Home);

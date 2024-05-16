@@ -5,6 +5,7 @@ import {Spinner} from '@/assets/loaders';
 import Layout from '@/components/Layout/Layout';
 import Chatbox from '@/components/pages/Home/Chatbox/Chatbox';
 import Profile from '@/components/pages/Home/Profile/Profile';
+import ThemePicker from '@/components/pages/Home/ThemePicker/ThemePicker';
 import {PATHS} from '@/helpers';
 import {themeMap} from '@/helpers/theme';
 import useUser from '@/hooks/useUser';
@@ -21,12 +22,14 @@ const HomePage = () => {
 
   const dispatch = useAppDispatch();
 
-  const {loading} = useUser({
+  const {
+    loading,
+    prefs: {currentTheme, theme: userDefinedTheme},
+  } = useUser({
     fetchUser: true,
   });
 
-  const [theme, setTheme] = React.useState(themeMap.get('Default'));
-  const [isProfileOpen, setIsProfileOpen] = React.useState(true);
+  const [isProfileOpen, setIsProfileOpen] = React.useState(false);
   const [logoutLoading, setLogoutLoading] = React.useState(false);
 
   const closeProfile = () => {
@@ -38,21 +41,22 @@ const HomePage = () => {
 
     try {
       await account.deleteSession('current');
+
+      dispatch(resetUser());
+
+      router.replace(PATHS.AccessPortal);
     } catch (error: any) {
       console.debug(error);
       setLogoutLoading(false);
-      return;
     }
-
-    dispatch(resetUser());
-
-    router.replace(PATHS.AccessPortal);
   };
+
+  const theme = themeMap.get(currentTheme) || userDefinedTheme;
 
   return (
     <Layout
       style={{
-        background: theme?.background_gradient,
+        background: theme?.backgroundGradient,
       }}
       className={styles.container}
     >
@@ -71,12 +75,13 @@ const HomePage = () => {
             >
               <User width={18} height={18} aria-hidden='true' />
             </p>
+            <ThemePicker />
             <button onClick={logOut} aria-label='Logout'>
               {logoutLoading ? <Spinner /> : 'Logout'}
             </button>
           </div>
           <div className={styles.chatbox}>
-            <Chatbox bubbleBackgoundColor={theme?.bubble_background_color} />
+            <Chatbox bubbleBackgoundColor={theme?.bubbleBackgroundColor} />
           </div>
           {isProfileOpen && <Profile closeProfile={closeProfile} />}
         </>
