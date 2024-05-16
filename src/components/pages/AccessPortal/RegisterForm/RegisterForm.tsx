@@ -1,4 +1,4 @@
-import {Mode} from '@/app/page';
+import {Mode} from '@/app/types';
 import {ArrowRight, Email, Eye, EyeSlash, User, UserPlus} from '@/assets/icons';
 import {Spinner} from '@/assets/loaders';
 import Field from '@/components/commons/Field/Field';

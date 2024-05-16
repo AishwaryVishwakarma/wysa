@@ -11,11 +11,7 @@ import {useRouter} from 'next/navigation';
 import React from 'react';
 
 import styles from './styles.module.scss';
-
-export enum Mode {
-  Login = 'login',
-  Register = 'register',
-}
+import {Mode} from './types';
 
 /**
  * Login page
