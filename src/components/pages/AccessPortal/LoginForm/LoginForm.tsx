@@ -12,15 +12,8 @@ interface Props {
 }
 
 const LoginForm: React.FC<Props> = ({setMode}) => {
-  const {
-    formData,
-    handleChange,
-    handleShowPassword,
-    onSubmit,
-    formError,
-    error,
-    loading,
-  } = useLogin();
+  const {formData, handleChange, handleShowPassword, onSubmit, error, loading} =
+    useLogin();
 
   return (
     <div className={styles.loginContainer}>
@@ -36,8 +29,6 @@ const LoginForm: React.FC<Props> = ({setMode}) => {
           required
           value={formData.email}
           onChange={handleChange}
-          showError={formError.email}
-          errorMessage='Please enter a valid email address'
           icon={<Email aria-hidden='true' />}
           autoComplete='email'
         />
@@ -49,8 +40,6 @@ const LoginForm: React.FC<Props> = ({setMode}) => {
           value={formData.password}
           onChange={handleChange}
           type={formData.showPassword ? 'text' : 'password'}
-          showError={formError.password}
-          errorMessage='Password must contain at least 8 characters, including uppercase, lowercase, and numbers'
           icon={
             formData.showPassword ? (
               <EyeSlash

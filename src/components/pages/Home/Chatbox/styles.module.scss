@@ -9,7 +9,7 @@
   @include flexbox(column, flex-start, flex-start);
   gap: 1rem;
   width: 100%;
-  max-width: 350px;
+  max-width: 500px;
   height: 500px;
   overflow-y: auto;
   position: relative;
@@ -49,11 +49,19 @@
       align-self: flex-end;
       background-color: #f1f1f1;
       text-align: right;
+
+      &:last-of-type {
+        border-top-right-radius: 0;
+      }
     }
 
     &.bot {
       align-self: flex-start;
       background-color: #f1f1f1;
+
+      &:last-of-type {
+        border-top-left-radius: 0;
+      }
     }
   }
 
@@ -71,10 +79,15 @@
       width: 100%;
       border-radius: 0.5rem;
       font-size: 0.9rem;
+      padding-right: 35px;
 
       &::placeholder {
         color: #ccc;
       }
+    }
+
+    svg {
+      cursor: pointer;
     }
   }
 }

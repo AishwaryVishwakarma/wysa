@@ -11,6 +11,7 @@ import {themeMap} from '@/helpers/theme';
 import useUser from '@/hooks/useUser';
 import {resetUser} from '@/redux/features/userSlice';
 import {useAppDispatch} from '@/redux/store';
+import Image from 'next/image';
 import {useRouter} from 'next/navigation';
 import React from 'react';
 
@@ -23,7 +24,7 @@ const HomePage = () => {
   const dispatch = useAppDispatch();
 
   const {
-    loading,
+    loading: userLoading,
     prefs: {currentTheme, theme: userDefinedTheme},
   } = useUser({
     fetchUser: true,
@@ -31,6 +32,7 @@ const HomePage = () => {
 
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
   const [logoutLoading, setLogoutLoading] = React.useState(false);
+  const [timoutLoading, setTimeoutLoading] = React.useState(true);
 
   const closeProfile = () => {
     setIsProfileOpen(false);
@@ -52,6 +54,14 @@ const HomePage = () => {
   };
 
   const theme = themeMap.get(currentTheme) || userDefinedTheme;
+  const loading = userLoading || timoutLoading;
+
+  // Timeout to show loading screen for 5 seconds
+  React.useEffect(() => {
+    setTimeout(() => {
+      setTimeoutLoading(false);
+    }, 5000);
+  }, []);
 
   return (
     <Layout
@@ -61,8 +71,14 @@ const HomePage = () => {
       className={styles.container}
     >
       {loading ? (
-        <div className={styles.spinnerContainer}>
-          <Spinner className={styles.spinner} />
+        <div className={styles.loadingContainer}>
+          <Image
+            src='https://c.tenor.com/RVvnVPK-6dcAAAAd/tenor.gif'
+            alt='Loading'
+            width={150}
+            height={150}
+          />
+          <p>Take a deep breath while your chat is loading</p>
         </div>
       ) : (
         <>

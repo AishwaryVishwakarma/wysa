@@ -1,8 +1,9 @@
 'use client';
 
+import {Telegram} from '@/assets/icons';
 import Field from '@/components/commons/Field/Field';
 import Image from 'next/image';
-import React from 'react';
+import React, {MouseEventHandler} from 'react';
 
 import styles from './styles.module.scss';
 
@@ -41,7 +42,11 @@ const Chatbox: React.FC<ChatboxProps> = ({
   const chatboxRef = React.useRef<HTMLDivElement | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<SVGElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     const input = inputRef.current;
@@ -80,7 +85,7 @@ const Chatbox: React.FC<ChatboxProps> = ({
             style={{
               backgroundColor: bubbleBackgoundColor,
               animationDelay:
-                idx > DEFAULT_CHAT.length - 1 ? '0s' : `${idx * 0.1}s`,
+                idx > DEFAULT_CHAT.length - 1 ? '0s' : `${idx * 0.3}s`,
               transform:
                 idx > DEFAULT_CHAT.length - 1
                   ? 'translateX(100%)'
@@ -107,6 +112,14 @@ const Chatbox: React.FC<ChatboxProps> = ({
           style={{
             backgroundColor: bubbleBackgoundColor,
           }}
+          icon={
+            <Telegram
+              role='button'
+              aria-label='Send message'
+              type='submit'
+              onClick={handleSubmit}
+            />
+          }
         />
       </form>
     </div>

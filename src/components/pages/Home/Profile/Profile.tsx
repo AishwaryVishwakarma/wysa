@@ -94,16 +94,29 @@ const Profile: React.FC<ProfileProps> = ({closeProfile}) => {
       await account.updatePrefs({
         ...prefs,
         profilePicture: imageUrl,
-        theme,
+        theme: {
+          ...theme,
+          name: theme.name || 'Custom Theme',
+        },
       });
 
       // Update the user in the store
       dispatch(
         updateUser({
           profilePicture: imageUrl,
-          theme,
+          theme: {
+            ...theme,
+            name: theme.name || 'Custom Theme',
+          },
         })
       );
+
+      if (!theme.name) {
+        setTheme({
+          ...theme,
+          name: 'Custom Theme',
+        });
+      }
 
       // Update the status
       setStatus(UploadStatus.Success);
@@ -176,6 +189,8 @@ const Profile: React.FC<ProfileProps> = ({closeProfile}) => {
             value={theme.name}
             name='name'
             onChange={handleThemeChange}
+            placeholder='Please enter a theme name'
+            title='Please enter a theme name'
           />
           <div className={styles.dropdown}>
             <label htmlFor='bubble-background'>Bubble Background</label>
@@ -184,11 +199,15 @@ const Profile: React.FC<ProfileProps> = ({closeProfile}) => {
               id='bubble-background'
               onChange={handleThemeChange}
               value={theme.bubbleBackgroundColor}
+              style={{background: theme.bubbleBackgroundColor}}
+              title='Select a bubble background color'
             >
               {bubbleBackgroundColors.map((color) => (
-                <option key={color} value={color}>
-                  {color}
-                </option>
+                <option
+                  key={color}
+                  value={color}
+                  style={{backgroundColor: color}}
+                />
               ))}
             </select>
           </div>
@@ -199,6 +218,8 @@ const Profile: React.FC<ProfileProps> = ({closeProfile}) => {
               id='background-gradient'
               onChange={handleThemeChange}
               value={theme.backgroundGradient}
+              style={{background: theme.backgroundGradient}}
+              title='Select a background gradient'
             >
               {backgroundGradients.map((color) => (
                 <option key={color} value={color}>

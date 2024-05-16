@@ -102,20 +102,27 @@
       grid-column: span 2;
     }
 
-    .dropdown {
-      select {
-        margin-top: 5px;
-        width: 100%;
-        padding: 10px 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 1rem;
-        outline: none;
-        cursor: pointer;
+    input {
+      cursor: text;
+    }
 
-        option {
-          padding: 5px;
-        }
+    select {
+      -webkit-appearance: none; /* Remove default arrow for webkit browsers */
+      -moz-appearance: none; /* Remove default arrow for Firefox */
+      appearance: none; /* Remove default arrow */
+      margin-top: 5px;
+      width: 100%;
+      padding: 10px 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      outline: none;
+      cursor: pointer;
+      color: transparent;
+
+      option {
+        padding: 5px;
+        color: black;
       }
     }
   }

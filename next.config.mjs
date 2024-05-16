@@ -16,6 +16,11 @@ const nextConfig = {
         protocol: 'https',
         pathname: '**',
       },
+      {
+        hostname: 'c.tenor.com',
+        protocol: 'https',
+        pathname: '**',
+      },
     ],
   },
   reactStrictMode: false,
