@@ -1,5 +1,5 @@
 import {PATHS} from '@/helpers';
-import {setUser} from '@/redux/features/userSlice';
+import {initUser} from '@/redux/features/userSlice';
 import {useAppDispatch} from '@/redux/store';
 import {useRouter} from 'next/navigation';
 import React from 'react';
@@ -84,10 +84,13 @@ const useLogin = () => {
         const res = await account.get();
 
         dispatch(
-          setUser({
+          initUser({
             id: res.$id,
             name: res.name,
             email: res.email,
+            profilePicture: res.prefs?.profilePicture,
+            currentTheme: res.prefs?.currentTheme,
+            theme: res.prefs?.theme,
           })
         );
 

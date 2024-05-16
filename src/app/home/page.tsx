@@ -21,7 +21,7 @@ const HomePage = () => {
 
   const dispatch = useAppDispatch();
 
-  const {name, email, loading} = useUser({
+  const {loading} = useUser({
     fetchUser: true,
   });
 
@@ -78,9 +78,7 @@ const HomePage = () => {
           <div className={styles.chatbox}>
             <Chatbox bubbleBackgoundColor={theme?.bubble_background_color} />
           </div>
-          {isProfileOpen && (
-            <Profile closeProfile={closeProfile} name={name} email={email} />
-          )}
+          {isProfileOpen && <Profile closeProfile={closeProfile} />}
         </>
       )}
     </Layout>

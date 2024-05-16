@@ -1,31 +1,44 @@
 import {Cross} from '@/assets/icons';
 import {Spinner} from '@/assets/loaders';
 import Field from '@/components/commons/Field/Field';
+import useUser from '@/hooks/useUser';
+import {updateUser} from '@/redux/features/userSlice';
+import {useAppDispatch} from '@/redux/store';
 import Img from 'next/image';
 import React from 'react';
 
-import {BUCKET_ID, ID, storage} from '../../../../../config/appWrite';
+import {
+  BUCKET_ID,
+  ID,
+  PROJECT_ID,
+  account,
+  storage,
+} from '../../../../../config/appWrite';
 import styles from './styles.module.scss';
 import {ProfileProps, UploadStatus} from './types';
 
 const getStatusMessage = (status: UploadStatus) => {
   switch (status) {
     case UploadStatus.Loading:
-      return <Spinner aria-label='Uploading' />;
+      return <Spinner aria-label='Updating...' />;
     case UploadStatus.Success:
-      return 'Uploaded Successfully';
+      return 'Updated Successfully';
     case UploadStatus.Error:
-      return 'Failed to upload';
+      return 'Failed to Update';
     default:
-      return 'Upload';
+      return 'Update';
   }
 };
 
-const Profile: React.FC<ProfileProps> = ({closeProfile, name, email}) => {
+const Profile: React.FC<ProfileProps> = ({closeProfile}) => {
+  const dispatch = useAppDispatch();
+
+  const {name, email, profilePicture, theme} = useUser();
+
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   const [file, setFile] = React.useState<File | null>(null);
-  const [image, setImage] = React.useState<string>('');
+  const [image, setImage] = React.useState<string>(profilePicture);
   const [status, setStatus] = React.useState<UploadStatus>(UploadStatus.Idle);
 
   // Handle the file change event
@@ -51,7 +64,21 @@ const Profile: React.FC<ProfileProps> = ({closeProfile, name, email}) => {
 
     try {
       // Upload the file
-      await storage.createFile(BUCKET_ID, ID.unique(), file);
+      const res = await storage.createFile(BUCKET_ID, ID.unique(), file);
+
+      const imageUrl = `https://cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${res.$id}/view?project=${PROJECT_ID}&mode=admin`;
+
+      // Update the user
+      await account.updatePrefs({
+        profilePicture: imageUrl,
+      });
+
+      // Update the user in the store
+      dispatch(
+        updateUser({
+          profilePicture: imageUrl,
+        })
+      );
 
       // Update the status
       setStatus(UploadStatus.Success);

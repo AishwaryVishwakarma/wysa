@@ -11,6 +11,11 @@ const nextConfig = {
         protocol: 'https',
         pathname: '**',
       },
+      {
+        hostname: 'cloud.appwrite.io',
+        protocol: 'https',
+        pathname: '**',
+      },
     ],
   },
   reactStrictMode: false,

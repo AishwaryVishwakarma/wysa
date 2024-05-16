@@ -1,5 +1,5 @@
 import {PATHS} from '@/helpers';
-import {setUser} from '@/redux/features/userSlice';
+import {initUser} from '@/redux/features/userSlice';
 import {useAppDispatch, useAppSelector} from '@/redux/store';
 import {useRouter} from 'next/navigation';
 import React from 'react';
@@ -38,10 +38,13 @@ const useUser = ({fetchUser}: Args = defaultArgs) => {
 
         // Set user in redux store
         dispatch(
-          setUser({
+          initUser({
             id: res.$id,
             email: res.email,
             name: res.name,
+            profilePicture: res.prefs?.profilePicture,
+            currentTheme: res.prefs?.currentTheme,
+            theme: res.prefs?.theme,
           })
         );
 

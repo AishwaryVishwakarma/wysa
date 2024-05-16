@@ -1,5 +1,5 @@
 import {PATHS} from '@/helpers';
-import {setUser} from '@/redux/features/userSlice';
+import {initUser} from '@/redux/features/userSlice';
 import {useAppDispatch} from '@/redux/store';
 import {useRouter} from 'next/navigation';
 import React from 'react';
@@ -88,9 +88,21 @@ const useRegister = () => {
         await account.create(id, email, password, name);
 
         // Set user in redux store
-        dispatch(setUser({id, name, email}));
+        dispatch(
+          initUser({
+            id,
+            name,
+            email,
+          })
+        );
 
         await account.createEmailPasswordSession(email, password);
+
+        await account.updatePrefs({
+          profilePicture: '',
+          currentTheme: 'Default',
+          theme: {},
+        });
 
         // Redirect to home page
         router.replace(PATHS.Home);
