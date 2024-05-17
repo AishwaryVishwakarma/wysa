@@ -35,6 +35,7 @@ const HomePage = () => {
         background: theme?.backgroundGradient,
       }}
       className={styles.container}
+      showNavbar={!loading}
     >
       {loading ? (
         <div className={styles.loadingContainer}>
