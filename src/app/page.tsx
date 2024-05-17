@@ -48,7 +48,7 @@ const AccessPortalPage = () => {
   }, [dispatch, router, isLogged, getUser]);
 
   return (
-    <Layout className={styles.container}>
+    <Layout showNavbar={false} className={styles.container}>
       {pageLoading ? (
         <Spinner className={styles.spinner} />
       ) : mode === Mode.Login ? (
