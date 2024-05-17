@@ -3,7 +3,7 @@
 import {Telegram} from '@/assets/icons';
 import Field from '@/components/commons/Field/Field';
 import Image from 'next/image';
-import React, {MouseEventHandler} from 'react';
+import React from 'react';
 
 import styles from './styles.module.scss';
 
@@ -32,6 +32,18 @@ const DEFAULT_CHAT = [
   },
 ];
 
+/**
+ * Represents a chatbox component that displays a conversation between a user and a bot.
+ *
+ * @component
+ * @example
+ * ```tsx
+ * <Chatbox
+ *   bubbleBackgoundColor="#F0F0F0"
+ *   className="custom-chatbox"
+ * />
+ * ```
+ */
 const Chatbox: React.FC<ChatboxProps> = ({
   bubbleBackgoundColor,
   className,

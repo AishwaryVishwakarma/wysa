@@ -6,6 +6,13 @@ import React from 'react';
 
 import {ID, account} from '../../config/appWrite';
 
+/**
+ * Custom hook for user registration.
+ * Handles form input changes, form validation, and form submission.
+ * Returns form data, form error state, error message, loading state, and event handlers.
+ *
+ * @returns An object containing form data, event handlers, form error state, error message, and loading state.
+ */
 const useRegister = () => {
   const router = useRouter();
 

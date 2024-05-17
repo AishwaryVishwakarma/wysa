@@ -1,4 +1,4 @@
-import {Cross} from '@/assets/icons';
+import {Cross, Information} from '@/assets/icons';
 import {Spinner} from '@/assets/loaders';
 import Field from '@/components/commons/Field/Field';
 import {backgroundGradients, bubbleBackgroundColors} from '@/helpers/theme';
@@ -190,7 +190,11 @@ const Profile: React.FC<ProfileProps> = ({closeProfile}) => {
             name='name'
             onChange={handleThemeChange}
             placeholder='Please enter a theme name'
-            title='Please enter a theme name'
+            icon={
+              <span title='Please enter your custom theme name'>
+                <Information aria-hidden='true' />
+              </span>
+            }
           />
           <div className={styles.dropdown}>
             <label htmlFor='bubble-background'>Bubble Background</label>
@@ -229,7 +233,14 @@ const Profile: React.FC<ProfileProps> = ({closeProfile}) => {
             </select>
           </div>
         </div>
-        <button type='submit'>{getStatusMessage(status)}</button>
+        <button
+          type='submit'
+          className={styles.submitButton}
+          disabled={status === UploadStatus.Loading}
+          aria-label='Update'
+        >
+          {getStatusMessage(status)}
+        </button>
       </form>
     </>
   );

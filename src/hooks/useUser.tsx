@@ -14,6 +14,12 @@ const defaultArgs: Args = {
   fetchUser: false,
 };
 
+/**
+ * Custom hook for managing user data.
+ *
+ * @param {Object} args - The arguments for the hook.
+ * @returns {Object} - The user data and related functions.
+ */
 const useUser = ({fetchUser}: Args = defaultArgs) => {
   const router = useRouter();
 

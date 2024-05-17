@@ -6,6 +6,10 @@ import React from 'react';
 
 import {account} from '../../config/appWrite';
 
+/**
+ * Custom hook for handling login functionality.
+ * @returns An object containing form data, event handlers, error state, and loading state.
+ */
 const useLogin = () => {
   const router = useRouter();
 
