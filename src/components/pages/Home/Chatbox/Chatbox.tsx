@@ -2,6 +2,8 @@
 
 import {Telegram} from '@/assets/icons';
 import Field from '@/components/commons/Field/Field';
+import {updateChat} from '@/redux/features/bubbleSlice';
+import {useAppDispatch, useAppSelector} from '@/redux/store';
 import Image from 'next/image';
 import React from 'react';
 
@@ -49,7 +51,11 @@ const Chatbox: React.FC<ChatboxProps> = ({
   className,
   ...rest
 }) => {
-  const [chat, setChat] = React.useState(DEFAULT_CHAT);
+  const dispatch = useAppDispatch();
+
+  // const [chat, setChat] = React.useState(DEFAULT_CHAT);
+
+  const {chats} = useAppSelector((state) => state.chat);
 
   const chatboxRef = React.useRef<HTMLDivElement | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
@@ -63,7 +69,8 @@ const Chatbox: React.FC<ChatboxProps> = ({
 
     const input = inputRef.current;
     if (input) {
-      setChat([...chat, {type: 'text', content: input.value}]);
+      // setChat([...chat, {type: 'text', content: input.value}]);
+      dispatch(updateChat(input.value));
       input.value = '';
     }
   };
@@ -73,7 +80,7 @@ const Chatbox: React.FC<ChatboxProps> = ({
     if (chatboxRef.current) {
       chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
     }
-  }, [chat]);
+  }, [chats]);
 
   // Focus on the input field when the component mounts
   React.useEffect(() => {
@@ -88,7 +95,7 @@ const Chatbox: React.FC<ChatboxProps> = ({
       className={`${styles.chatbox} ${className}`}
       {...rest}
     >
-      {chat.map((message, idx) => {
+      {chats.map((message, idx) => {
         const {type, content} = message ?? {};
 
         return (
